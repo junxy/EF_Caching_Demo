@@ -18,7 +18,9 @@ namespace EF_Caching_Demo
             EFTracingProviderConfiguration.RegisterProvider();
             EFCachingProviderConfiguration.RegisterProvider();
 
-            ICache cache = new InMemoryCache();
+            //ICache cache = new InMemoryCache();
+            ICache cache = MemcachedCache.CreateMemcachedCache();
+
             CachingPolicy cachingPolicy = CachingPolicy.CacheAll;
 
             // log SQL from all connections to the console
@@ -38,6 +40,8 @@ namespace EF_Caching_Demo
 
                     Console.WriteLine(nDb.Customers.First(x => x.CustomerID == "ALFKI").ContactName);
                     Console.WriteLine(nDb.Customers.First(x => x.CustomerID == "ALFKI").ContactName);
+                    Console.WriteLine(nDb.Customers.First().ContactName);
+                    Console.WriteLine(nDb.Customers.First().ContactName);
                     Console.WriteLine(nDb.Customers.AsNoTracking().First(x => x.CustomerID == "ALFKI").Orders.Count());
 
                 }
